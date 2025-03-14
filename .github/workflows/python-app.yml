@@ -1,0 +1,36 @@
+name: Python Application
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Use your desired Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install gunicorn  # Install Gunicorn
+        pip install -r requirements.txt  # Install other dependencies
+
+    - name: Run tests (optional step)
+      run: |
+        pytest  # Replace with your test framework, if applicable
+
+    - name: Deploy (optional)
+      run: |
+        echo "Deploy step here. Add your deployment commands."
